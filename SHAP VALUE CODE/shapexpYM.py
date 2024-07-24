@@ -1,4 +1,4 @@
-import xgboost as xgb
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, median_absolute_error
@@ -24,10 +24,9 @@ data = pd.read_csv(r'C:\Users\15198\Desktop\ML1\ym\data2.csv')
 x = data.drop(columns=['YoungModulus'])  # 特征
 y = data['YoungModulus']  # 目标变量
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
 # 示例模型
-model = xgb.XGBRegressor(n_estimators=336, max_depth=8, learning_rate=0.110417704,
-                         min_child_weight=3, gamma=0.092453364, reg_alpha=0.973803031, reg_lambda=0.790484164,
-                         random_state=42, n_jobs=-1)
+model = RandomForestRegressor(n_estimators=171, max_depth=41, min_samples_leaf=1, min_samples_split=3, random_state=42, n_jobs=-1)
 model.fit(x_train, y_train)
 y_train_pred = model.predict(x_train)
 y_test_pred = model.predict(x_test)
